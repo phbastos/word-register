@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-function ModalSentences({ word, sentences, onSentenceSave }) {
+function ModalSentences({ sentences, onSentenceSave }) {
     const [sentence, setSentence] = useState('');
 
     const handleSave = () => {
@@ -42,8 +42,8 @@ function ModalSentences({ word, sentences, onSentenceSave }) {
                             ></button>
                         </div>
                         <div className="modal-body">
-                            {sentences ? sentences.map((sentence, index) => (
-                                    <div key={index} className="mb-4">
+                            {sentences ? sentences.map((sentence) => (
+                                    <div key={sentences.indexOf(sentence)} className="mb-4">
                                         {sentence}
                                     </div>
                                 )
