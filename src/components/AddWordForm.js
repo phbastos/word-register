@@ -12,7 +12,7 @@ const AddWordForm = ({ onAddWord, language }) => {
         setWord('');
         setDefinition('');
         setObservacao('');
-        setCategoria('');
+        setCategoria(categoria);
     };
 
     const handleCategoriaChange = (e) => {
@@ -51,11 +51,12 @@ const AddWordForm = ({ onAddWord, language }) => {
                 </div>
                 <div className='col'>
                     <select id="categoria-select" className="form-select form-select-sm" onChange={handleCategoriaChange}>
-                        <option disabled selected value="selecione">Selecione uma categoria</option>
+                        <option selected value="selecione">Selecione uma categoria</option>
                         <option value="verbo">Verbo</option>
                         <option value="adjetivo">Adjetivo</option>
-                        <option value="subtantivo">Substantivo</option>
-                        <option value="saudacooes">Saudações</option>
+                        <option value="substantivo">Substantivo</option>
+                        <option value="saudacao">Saudações</option>
+                        <option value="pronome">Pronome</option>
                         <option value="outros">Outros</option>
                     </select>
                 </div>

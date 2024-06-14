@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-function ModalSentences({ sentences, onSentenceSave }) {
+function ModalSentences({ word, sentences, onSentenceSave }) {
     const [sentence, setSentence] = useState('');
 
     const handleSave = () => {
@@ -33,7 +33,7 @@ function ModalSentences({ sentences, onSentenceSave }) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header bg-success text-light">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Frases</h1>
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Frases com {word.word}</h1>
                             <button
                                 type="button"
                                 className="btn-close"

@@ -23,7 +23,7 @@ export const handleAddWord = async (newWord) => {
 
 export const updateWord = async (updatedWord) => {
     try {
-        const response = await axios.patch(API_URL + '/updateWord/' + updatedWord._id, updatedWord);
+        const response = await axios.put(API_URL + '/updateWord/' + updatedWord._id, updatedWord);
         return response.data;
     } catch (error) {
         console.error('Erro ao atualizar palavra:', error);

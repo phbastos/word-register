@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import AddWordForm from './AddWordForm';
 import WordList from './WordList';
-import { deleteWord, fetchWords, handleAddWord, updateWord } from "./ApiRequestSender";
+import {deleteWord, fetchWords, handleAddWord, updateWord} from "./Routes";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
     ]);
     const [language, setLanguage] = useState('japones');
     const [loading, setLoading] = useState(true);
+    const [categoria, setCategoria] = useState('verbo');
 
     useEffect(() => {
         const loadWords = async () => {
@@ -78,7 +79,12 @@ function App() {
         return <div>Loading...</div>; // Exibir um indicador de carregamento enquanto os dados estão sendo buscados
     }
 
-    const displayedWords = words.filter(word => word.language === language);
+    const handleCategoriaChange = (selectedCategoria) => {
+        setCategoria(selectedCategoria);
+    }
+
+    const displayedWords = words.filter(word => word.language === language
+        && (categoria === 'outros' ? word.categoria === '' || word.categoria === categoria : word.categoria === categoria));
     console.log('Displayed words:', displayedWords);
 
     return (
@@ -94,7 +100,7 @@ function App() {
                 {/*    <SearchBar onSearch={handleSearch} />*/}
                 {/*</div>*/}
                 <div className="my-3">
-                    <WordList onWordChange={handleUpdateWord} onDelete={handleDeleteWord} onSentenceSave={handleSentenceSave} words={displayedWords} />
+                    <WordList onWordChange={handleUpdateWord} onDelete={handleDeleteWord} onSentenceSave={handleSentenceSave} onCategoriaChange={handleCategoriaChange} words={displayedWords} />
                 </div>
             </div>
         </div>

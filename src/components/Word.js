@@ -74,7 +74,7 @@ function Word({ word, onWordChange, onDelete, onSentenceSave }) {
                     <button onClick={handleToggleDefinition} className="btn btn-outline-success mx-3">
                         {showDefinition ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i>}
                     </button>
-                    <ModalSentences sentences={word.sentences} onSentenceSave={handleSentenceSave} />
+                    <ModalSentences word={word} sentences={word.sentences} onSentenceSave={handleSentenceSave} />
                 </li>
             </ul>
         </div>
