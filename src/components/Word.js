@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ModalSentences from './ModalSentences';
+import { toHiragana } from 'wanakana';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -44,6 +45,8 @@ function Word({ word, sentences, onWordChange, onSetenceSave, onDelete }) {
         }
     };
 
+    const hiraganaWord = word.language ==='japones' ? toHiragana(word.word) : '';
+
     return (
         <div className="card" style={{ width: '18rem' }}>
             <div className="palavra card-header bg-success text-light text-center h5 font-bold d-flex">
@@ -61,7 +64,9 @@ function Word({ word, sentences, onWordChange, onSetenceSave, onDelete }) {
                     ) : (
                         <span onDoubleClick={handleDoubleClick}>
                             {word.word}
+                            {hiraganaWord !== '' ? <div>{hiraganaWord}</div> : ''}
                         </span>
+
                     )}
                 </div>
                 <div className="justify-content-end">
