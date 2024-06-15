@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import AddWordForm from './AddWordForm';
 import WordList from './WordList';
-import {deleteWord, fetchWords, handleAddWord, updateWord} from "./Routes";
+import {deleteWord, fetchWords, getSentences, handleAddWord, saveSentence, updateWord} from "./Routes";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
     const [language, setLanguage] = useState('japones');
     const [loading, setLoading] = useState(true);
     const [categoria, setCategoria] = useState('verbo');
+    const [sentences, setSentences] = useState([]);
 
     useEffect(() => {
         const loadWords = async () => {
@@ -29,6 +30,21 @@ function App() {
         };
 
         loadWords();
+    }, []);
+
+    useEffect(() => {
+        const loadSentences = async () => {
+            try {
+                const sentencesData = await getSentences();
+                console.log('Sentences fetched:', sentencesData);
+                setSentences(sentencesData);
+            } catch (error) {
+                console.log('Erro ao buscar sentences:', error);
+                // Handle error appropriately
+            }
+        };
+
+        loadSentences();
     }, []);
 
     const handleAddWordWrapper = async (newWord) => {
@@ -70,11 +86,6 @@ function App() {
         }
     };
 
-    const handleSentenceSave = async (word, sentence) => {
-        const updatedSentences = word.sentences ? [...word.sentences, sentence] : [sentence];
-        await handleUpdateWord({ ...word, sentences: updatedSentences });
-    };
-
     if (loading) {
         return <div>Loading...</div>; // Exibir um indicador de carregamento enquanto os dados estão sendo buscados
     }
@@ -85,7 +96,23 @@ function App() {
 
     const displayedWords = words.filter(word => word.language === language
         && (categoria === 'outros' ? word.categoria === '' || word.categoria === categoria : word.categoria === categoria));
-    console.log('Displayed words:', displayedWords);
+
+    const orderedWords = displayedWords.sort((a, b) => {
+        if (a.word < b.word) return -1;
+        if (a.word > b.word) return 1;
+        return 0;
+    });
+
+    console.log('Displayed words:', orderedWords);
+
+    const handleSentenceSave = async (word, sentence) => {
+        try {
+            await saveSentence(word._id, sentence)
+            setSentences([...sentences, sentence]);
+        } catch (error) {
+            console.error('Erro ao salvar frase:', error);
+        }
+    }
 
     return (
         <div>
@@ -100,7 +127,13 @@ function App() {
                 {/*    <SearchBar onSearch={handleSearch} />*/}
                 {/*</div>*/}
                 <div className="my-3">
-                    <WordList onWordChange={handleUpdateWord} onDelete={handleDeleteWord} onSentenceSave={handleSentenceSave} onCategoriaChange={handleCategoriaChange} words={displayedWords} />
+                    <WordList onWordChange={handleUpdateWord}
+                              onDelete={handleDeleteWord}
+                              onCategoriaChange={handleCategoriaChange}
+                              onSentenceSave={handleSentenceSave()}
+                              words={orderedWords}
+                              sentences={sentences}
+                    />
                 </div>
             </div>
         </div>

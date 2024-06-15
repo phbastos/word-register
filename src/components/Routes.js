@@ -32,9 +32,27 @@ export const updateWord = async (updatedWord) => {
 
 export const deleteWord = async (wordId) => {
     try {
-        const response = await axios.delete(API_URL + '/removeWord/' + wordId);
+        const response = await axios.delete(API_URL + '/deleteWord/' + wordId);
         return response.data;
     } catch (error) {
         console.error('Erro ao remover palavra:', error);
+    }
+}
+
+export const getSentences = async (wordId) => {
+    try {
+        const response = await axios.get(API_URL + '/getSentences/');
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao buscar frases:', error);
+    }
+}
+
+export const saveSentence = async (wordId, sentence) => {
+    try {
+        const response = await axios.post(API_URL + '/addSentence/' + wordId + '/' + sentence);
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao salvar frase:', error);
     }
 }

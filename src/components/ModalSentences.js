@@ -7,10 +7,12 @@ function ModalSentences({ word, sentences, onSentenceSave }) {
 
     const handleSave = () => {
         if (sentence.trim()) {
-            onSentenceSave(sentence); // Passa a nova sentença para a função onSentenceSave
+            onSentenceSave(word, sentence); // Passa a nova sentença para a função onSentenceSave
             setSentence('');
         }
     };
+
+    const displayedSentences = sentences.filter((sentence) => sentence.wordId === word._id);
 
     return (
         <>
@@ -44,7 +46,7 @@ function ModalSentences({ word, sentences, onSentenceSave }) {
                         <div className="modal-body">
                             {sentences ? sentences.map((sentence) => (
                                     <div key={sentences.indexOf(sentence)} className="mb-4">
-                                        {sentence}
+                                        {displayedSentences.sentence}
                                     </div>
                                 )
                             ) : (

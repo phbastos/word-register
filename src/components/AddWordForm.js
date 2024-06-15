@@ -57,6 +57,7 @@ const AddWordForm = ({ onAddWord, language }) => {
                         <option value="substantivo">Substantivo</option>
                         <option value="saudacao">Saudações</option>
                         <option value="pronome">Pronome</option>
+                        <option value="familia">Família</option>
                         <option value="outros">Outros</option>
                     </select>
                 </div>

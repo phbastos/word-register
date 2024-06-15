@@ -11,6 +11,7 @@ function CategoriaSelect( { onCategoriaChange } ) {
           <option value={'substantivo'}>Substantivos</option>
           <option value={'saudacao'}>Saudações</option>
           <option value={'pronome'}>Pronome</option>
+          <option value={'familia'}>Família</option>
           <option value={'outros'}>Outros</option>
       </select>
   )

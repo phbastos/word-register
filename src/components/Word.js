@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import ModalSentences from './ModalSentences';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-function Word({ word, onWordChange, onDelete, onSentenceSave }) {
+function Word({ word, sentences, onWordChange, onSetenceSave, onDelete }) {
     const [showDefinition, setShowDefinition] = useState(false);
     const [showObservacao, setShowObservacao] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -35,8 +35,13 @@ function Word({ word, onWordChange, onDelete, onSentenceSave }) {
         }
     };
 
-    const handleSentenceSave = (sentence) => {
-        onSentenceSave(word, sentence);
+    const handleSentenceSave = async (word, sentence) => {
+        try {
+            console.log('Salvando frase:', word._id, sentence);
+            onSetenceSave(word._id, sentence);
+        } catch (error) {
+            console.error('Erro ao salvar frase:', error);
+        }
     };
 
     return (
@@ -74,7 +79,7 @@ function Word({ word, onWordChange, onDelete, onSentenceSave }) {
                     <button onClick={handleToggleDefinition} className="btn btn-outline-success mx-3">
                         {showDefinition ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i>}
                     </button>
-                    <ModalSentences word={word} sentences={word.sentences} onSentenceSave={handleSentenceSave} />
+                    <ModalSentences word={word} sentences={sentences} onSentenceSave={handleSentenceSave}/>
                 </li>
             </ul>
         </div>

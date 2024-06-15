@@ -2,7 +2,7 @@ import React from 'react';
 import Word from './Word';
 import CategoriaSelect from "./CategoriaSelect"; // Certifique-se de que o caminho do import está correto
 
-const WordList = ({ onWordChange, onDelete, onSentenceSave, onCategoriaChange, words, language }) => {
+const WordList = ({ onWordChange, onDelete, onCategoriaChange, onSentenceSave, words, language, sentences }) => {
     return (
         <div>
             <div className={"row justify-content-center"}>
@@ -16,7 +16,12 @@ const WordList = ({ onWordChange, onDelete, onSentenceSave, onCategoriaChange, w
             <div className="row d-flex justify-content-center">
                 {words.map((word) => (
                     <div key={word.id} className="col-md-3 mb-4">
-                        <Word onWordChange={onWordChange} onDelete={onDelete} onSentenceSave={onSentenceSave} word={word} language={language} />
+                        <Word onWordChange={onWordChange}
+                              onDelete={onDelete}
+                              onSetenceSave={onSentenceSave}
+                              word={word}
+                              language={language}
+                              sentences={sentences}/>
                     </div>
                 ))}
             </div>
